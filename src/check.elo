@@ -36,9 +36,9 @@ pub fn between(n: Int, min: Int, max: Int) -> Bool {
 // digit.
 pub fn strong_password(s: String) -> Bool {
     return s.length >= 8
-        && regex.is_match(r"\p{Ll}", s)
-        && regex.is_match(r"\p{Lu}", s)
-        && regex.is_match(r"[0-9]", s)
+    && regex.is_match(r"\p{Ll}", s)
+    && regex.is_match(r"\p{Lu}", s)
+    && regex.is_match(r"[0-9]", s)
 }
 
 // A date written as YYYY-MM-DD that exists in the calendar.
