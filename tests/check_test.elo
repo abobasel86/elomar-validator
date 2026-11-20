@@ -58,9 +58,9 @@ fn test_collect() {
     let name = "L"
     let email = "lina@example.com"
     let problems = check.collect([
-            check.require(check.length_between(name, 2, 50), "name is too short"),
-            check.require(check.email(email), "email is not valid"),
-            check.require(false, "always")
+        check.require(check.length_between(name, 2, 50), "name is too short"),
+        check.require(check.email(email), "email is not valid"),
+        check.require(false, "always")
     ])
     assert_eq(problems, ["name is too short", "always"])
 }
