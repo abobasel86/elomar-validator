@@ -1,0 +1,21 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cargo
+          key: elomar-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: elomar-${{ runner.os }}-
+      - name: Install Elomar-Lang
+        run: cargo install --git https://github.com/abobasel86/elomar-lang elomar-cli --locked
+      - run: elomar test
+      - run: elomar fmt --check .

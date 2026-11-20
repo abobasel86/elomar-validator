@@ -1,0 +1,5 @@
+[package]
+name = "validator"
+version = "0.1.0"
+description = "Checks for user input such as web forms: e-mail, URL, phone, dates, passwords, lengths and ranges, and a simple way to collect error messages."
+license = "MIT OR Apache-2.0"

@@ -1,0 +1,66 @@
+use app.check
+
+fn test_email() {
+    assert(check.email("lina@example.com"))
+    assert(check.email("a.b+tag@mail.example.org"))
+    assert(!check.email("lina@example"))
+    assert(!check.email("lina example.com"))
+    assert(!check.email("@example.com"))
+    assert(!check.email("lina@@example.com"))
+}
+
+fn test_url() {
+    assert(check.url("https://example.com"))
+    assert(check.url("http://localhost:8080/path?q=1#top"))
+    assert(check.url("https://sub.example.org/a/b"))
+    assert(!check.url("ftp://example.com"))
+    assert(!check.url("https://"))
+    assert(!check.url("example.com"))
+    assert(!check.url("https://exa mple.com"))
+}
+
+fn test_phone_and_digits() {
+    assert(check.phone("+962 79 123 4567"))
+    assert(check.phone("(06) 555-1234"))
+    assert(!check.phone("12345"))
+    assert(!check.phone("+962 79 abc 4567"))
+    assert(check.digits("007"))
+    assert(!check.digits(""))
+    assert(!check.digits("1.5"))
+}
+
+fn test_ranges() {
+    assert(check.length_between("لينا", 2, 10))
+    assert(!check.length_between("x", 2, 10))
+    assert(check.between(5, 1, 5))
+    assert(!check.between(6, 1, 5))
+}
+
+fn test_password() {
+    assert(check.strong_password("Secret123"))
+    assert(!check.strong_password("secret123"))
+    assert(!check.strong_password("SECRET123"))
+    assert(!check.strong_password("Secretabc"))
+    assert(!check.strong_password("Se1"))
+}
+
+fn test_dates() {
+    assert(check.iso_date("2024-02-29"))
+    assert(!check.iso_date("2023-02-29"))
+    assert(!check.iso_date("1900-02-29"))
+    assert(check.iso_date("2000-02-29"))
+    assert(!check.iso_date("2026-04-31"))
+    assert(!check.iso_date("2026-13-01"))
+    assert(!check.iso_date("26-1-1"))
+}
+
+fn test_collect() {
+    let name = "L"
+    let email = "lina@example.com"
+    let problems = check.collect([
+        check.require(check.length_between(name, 2, 50), "name is too short"),
+        check.require(check.email(email), "email is not valid"),
+        check.require(false, "always")
+    ])
+    assert_eq(problems, ["name is too short", "always"])
+}
